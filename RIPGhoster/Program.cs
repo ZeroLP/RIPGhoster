@@ -11,7 +11,15 @@ namespace RIPGhoster
             Console.Title = "RIPGhoster";
 
             var riptestHandle = NativeLibrary.Load($@"{System.IO.Directory.GetCurrentDirectory()}\RIPTest.dll");
-            
+
+            DemonstrateStandardFunctionCalling(riptestHandle);
+            //DemonstrateThisCallFunctionCalling(riptestHandle);
+
+            Console.ReadLine();
+        }
+
+        private static void DemonstrateStandardFunctionCalling(IntPtr riptestHandle)
+        {
             //Could just use Kernel32!GetProcAddress here.
             var standardFunctionRVA = (nint)riptestHandle + 0x12C80; //55 8B EC 81 EC ? ? ? ? 53 56 57 8D 7D F4
 
@@ -22,8 +30,11 @@ namespace RIPGhoster
 
             Console.WriteLine("");
             StandardFunctionCaller.CallStandardFunctionSafeWithJmpTable(standardFunctionRVA, 100);
+        }
 
-            /*var thisHandle = (nint)riptestHandle + 0x1D3DC; //89 15 ? ? ? ? 5F 
+        private static void DemonstrateThisCallFunctionCalling(IntPtr riptestHandle)
+        {
+            var thisHandle = (nint)riptestHandle + 0x1D3DC; //89 15 ? ? ? ? 5F 
             var method1RVA = (nint)riptestHandle + 0x12400; //55 8B EC 81 EC ? ? ? ? 53 56 57 51 8D 7D E8
 
             Console.WriteLine($"ClassTest Handle: 0x{thisHandle:X}");
@@ -33,9 +44,9 @@ namespace RIPGhoster
             ThisCallFunctionCaller.CallThisCallFunctionUnsafe(method1RVA, thisHandle, 100);
 
             Console.WriteLine("");
-            ThisCallFunctionCaller.CallThisCallFunctionSafeWithJmpTable(method1RVA, thisHandle, 100);*/
+            ThisCallFunctionCaller.CallThisCallFunctionSafeWithJmpTable(method1RVA, thisHandle, 100);
 
-            Console.ReadLine();
+            Console.WriteLine("");
         }
     }
 }

@@ -8,3 +8,5 @@ Call CallFoo(int a1) -> JMPTable(push eax, ret) -> CallFoo(int a1) -> Foo(a1)
 
 # Execution in scene
 ![](https://i.imgur.com/0YnYMER.png)
+
+![](https://i.imgur.com/cdWZVQe.png)
